@@ -1,7 +1,3 @@
-"""
-Consumidor Kafka: Recibe datos de criptomonedas y noticias, y los almacena en MongoDB y MySQL
-"""
-
 import json
 import logging
 import signal

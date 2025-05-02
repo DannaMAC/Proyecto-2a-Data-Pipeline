@@ -1,6 +1,3 @@
-"""
-Visualización: Dashboard interactivo para los datos de criptomonedas
-"""
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -31,7 +28,6 @@ def get_data_from_mongodb():
         client = MongoClient(MONGO_URI)
         db = client[MONGO_DB]
         collection = db['crypto_prices']
-        # Obtener últimos 100 registros
         pipeline = [
             {"$sort": {"timestamp": -1}},
             {"$limit": 100},
@@ -60,7 +56,7 @@ def get_data_from_mysql():
             f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
         )
         query = """
-        SELECT name, symbol, price_usd, market_cap_usd, timestamp
+        SELECT name, symbol, price, market_cap_usd, timestamp
         FROM crypto_prices
         ORDER BY timestamp DESC
         LIMIT 100

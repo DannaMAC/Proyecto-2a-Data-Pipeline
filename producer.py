@@ -1,6 +1,3 @@
-"""
-Productor Kafka: Obtiene datos de criptomonedas y noticias y los envía a Kafka
-"""
 import json
 import time
 import logging
