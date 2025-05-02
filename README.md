@@ -33,7 +33,7 @@ El pipeline consta de los siguientes componentes:
 
 ## Requisitos previos
 
-- Python 3.7+
+- Python 
 - Apache Kafka
 - MongoDB
 - MySQL
@@ -47,15 +47,7 @@ Ejecuta el script de configuración para instalar todas las dependencias:
 ```
 setup.bat
 ```
-
-### 2. Instalar y configurar servicios necesarios
-
-Sigue las guías de instalación para cada servicio:
-- [Instalación de Apache Kafka en Windows](kafka_windows_setup.md)
-- [Instalación de MongoDB en Windows](mongodb_windows_setup.md)
-- [Instalación de MySQL en Windows](mysql_windows_setup.md)
-
-### 3. Configurar el archivo .env
+### 2. Configurar el archivo .env
 
 El script de instalación crea un archivo `.env` con configuración predeterminada. Edita este archivo según tu configuración:
 
@@ -127,17 +119,6 @@ start_pipeline.bat
 ### config.py
 - Contiene la configuración centralizada para todos los componentes
 
-## Personalización
-
-### Cambiar las fuentes de datos
-Modifica `producer.py` para añadir o cambiar las fuentes de datos.
-
-### Añadir procesamiento adicional
-Modifica `consumer.py` para implementar lógica de procesamiento adicional.
-
-### Personalizar la visualización
-Modifica `visualization.py` para añadir o cambiar visualizaciones en el dashboard.
-
 ## Solución de problemas
 
 ### El productor no puede conectarse a Kafka
@@ -155,11 +136,3 @@ Modifica `visualization.py` para añadir o cambiar visualizaciones en el dashboa
 ### El dashboard no muestra datos
 - Asegúrate de que el consumidor está almacenando datos correctamente
 - Verifica que las consultas en visualization.py son correctas
-
-## Recursos adicionales
-
-- [Documentación de Apache Kafka](https://kafka.apache.org/documentation/)
-- [Documentación de MongoDB](https://docs.mongodb.com/)
-- [Documentación de MySQL](https://dev.mysql.com/doc/)
-- [Documentación de Plotly Dash](https://dash.plotly.com/)
-- [API de CoinGecko](https://www.coingecko.com/api/documentation)

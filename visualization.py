@@ -6,7 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from pymongo import MongoClient
 from dash import Dash, html, dcc, Input, Output, dash_table
-import mysql.connector
+from sqlalchemy import create_engine
 from datetime import datetime, timedelta
 
 from config import (
@@ -47,14 +47,11 @@ def get_data_from_mongodb():
         print(f"Error al obtener datos de MongoDB: {e}")
         return pd.DataFrame()
 
-# Función para obtener datos desde MySQL
+# Función para obtener datos desde MySQL usando SQLAlchemy
 def get_data_from_mysql():
     try:
-        conn = mysql.connector.connect(
-            host=MYSQL_HOST,
-            user=MYSQL_USER,
-            password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+        engine = create_engine(
+            f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
         )
         
         # Consulta para obtener los precios más recientes
@@ -65,8 +62,7 @@ def get_data_from_mysql():
         LIMIT 100
         """
         
-        df = pd.read_sql(query, conn)
-        conn.close()
+        df = pd.read_sql(query, engine)
         return df
     
     except Exception as e:
@@ -76,11 +72,8 @@ def get_data_from_mysql():
 # Función para obtener noticias desde MySQL
 def get_news_from_mysql():
     try:
-        conn = mysql.connector.connect(
-            host=MYSQL_HOST,
-            user=MYSQL_USER,
-            password=MYSQL_PASSWORD,
-            database=MYSQL_DATABASE
+        engine = create_engine(
+            f"mysql+mysqlconnector://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
         )
         
         # Consulta para obtener las noticias más recientes
@@ -91,8 +84,7 @@ def get_news_from_mysql():
         LIMIT 10
         """
         
-        df = pd.read_sql(query, conn)
-        conn.close()
+        df = pd.read_sql(query, engine)
         return df
     
     except Exception as e:
@@ -296,11 +288,12 @@ def update_news(n_intervals):
     for _, row in news_df.iterrows():
         news_items.append(html.Li([
             html.A(row['title'], href=row['link'], target='_blank'),
-            html.Span(f" - {pd.to_datetime(row['timestamp']).strftime('%d/%m/%Y %H:%M')}")
+            html.Span(f" - {row['timestamp']}", style={'fontSize': 'smaller'})
         ]))
     
     return news_items
 
-# Ejecutar el servidor
+# Ejecutar la aplicación sin reloader
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True, use_reloader=False)
+
