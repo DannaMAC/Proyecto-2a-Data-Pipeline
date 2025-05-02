@@ -3,6 +3,8 @@
 
 Este proyecto implementa un pipeline de datos completo para obtener, procesar, almacenar y visualizar información sobre criptomonedas en tiempo real. El pipeline incluye web scraping, consumo de APIs, procesamiento con Apache Kafka, almacenamiento en bases de datos y visualización interactiva.
 
+Autora: Danna Corral 
+
 ## Arquitectura
 
 El pipeline consta de los siguientes componentes:
